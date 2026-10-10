@@ -17,7 +17,9 @@ Resolve **methodology root** (first match):
 1. Environment variable `AGENTIC_METHODOLOGY_ROOT`
 2. The resolved target of this installed skill's symlink/junction: from
    `skills/update-project/SKILL.md`, go up three levels and verify that the
-   result contains `templates/AGENTS.project.md`
+   result contains `templates/AGENTS.project.md`. Claude Code names the
+   skill's base directory when it loads — resolve that path with `realpath`
+   (or `readlink -f`); Cursor: resolve `~/.cursor/skills/update-project`
 3. The current repo, if it contains `templates/AGENTS.project.md`
 
 If the skill was copied rather than linked and none match, stop and ask the
@@ -47,6 +49,13 @@ the user decides.
    git -C <methodology-root> \
        diff <stamp>..HEAD -- templates skills variants harnesses
    ```
+
+   Infer this repo's harness from disk (see `harnesses/README.md`):
+   `.cursor/skills/` → cursor; `CLAUDE.md` pointer or `.claude/skills/` →
+   claude; both → both. Do not re-ask. For claude, also compare the
+   `CLAUDE.md` pointer and the SessionStart hook in `.claude/settings.json`
+   against `harnesses/claude.md` — the hook only changes via a merge, never
+   by overwriting other settings.
 
    Read the diff and translate it into concrete proposed changes to *this*
    repo's files. Ignore changes that don't apply here (e.g. a variant or

@@ -1,18 +1,27 @@
 ---
 name: context-compact
-description: Recovery after Cursor auto-summarize or an accidental /summarize mid-task. Re-reads project files from disk and optionally writes a short 5-point continue block. Not a session end — do not run this as part of /handoff. Use when the chat was just compacted, summarized, or the user says context was lost.
+description: Recovery after a mid-task compaction — Cursor auto-summarize or /summarize, Claude Code auto-compact or /compact — when the re-injected context is not enough. Re-reads project files from disk and optionally writes a short 5-point continue block. Not a session end — do not run this as part of /handoff. Use when the chat was just compacted, summarized, or the user says context was lost.
 disable-model-invocation: true
 argument-hint: "optional: what to continue"
 ---
 
 # Context compact (recovery)
 
-Cursor `/summarize` and `/compress` are editor commands. A skill cannot
-invoke them. This skill does not replace them and does not end a session.
+`/summarize` (Cursor) and `/compact` (Claude Code) are harness commands. A
+skill cannot invoke them. This skill does not replace them and does not end a
+session.
+
+Harness note: Cursor has no hook that re-injects files after a summarize, so
+this skill is the recovery path there. Claude Code re-loads `CLAUDE.md` (and
+the `@AGENTS.md` it imports) natively and, if the SessionStart hook from
+`harnesses/claude.md` is wired, re-injects `PROJECT.md` — run this skill there
+only when that hook is missing or the agent still lacks what the next step
+needs.
 
 **When to run:** the chat was just compacted (manual or automatic) and
 the agent must keep working *in this chat*. After a planned `/handoff`,
-do not run this — the user starts a fresh chat with the handoff block.
+do not run this — the user starts a fresh chat (Claude Code: `/clear`)
+with the handoff block.
 
 **When not to run:** session end, "hand over", finished task. That is
 `/handoff`.
@@ -32,7 +41,8 @@ Read, in this order, and only what exists:
 3. Git status: branch, last commit, uncommitted files. One short report
 4. The last explicit user instruction (quote it if it is still in the
    preserved tail)
-5. Skills needed for the *next* action — Read or @-mention them again
+5. Skills needed for the *next* action — re-read their `SKILL.md` from disk;
+   a compact can drop or truncate skill bodies loaded earlier
 
 Do not dump DETAILS.md. Jump only into a section the next step needs.
 

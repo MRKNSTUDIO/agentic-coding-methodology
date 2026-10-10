@@ -14,7 +14,9 @@ Resolve **methodology root** (first match):
 1. Environment variable `AGENTIC_METHODOLOGY_ROOT`
 2. The resolved target of this installed skill's symlink/junction: from
    `skills/setup-project/SKILL.md`, go up three levels and verify that the
-   result contains `templates/AGENTS.project.md`
+   result contains `templates/AGENTS.project.md`. Claude Code names the
+   skill's base directory when it loads — resolve that path with `realpath`
+   (or `readlink -f`); Cursor: resolve `~/.cursor/skills/setup-project`
 3. The current repo, if it contains `templates/AGENTS.project.md` and
    `skills/setup-project/SKILL.md`
 
@@ -57,8 +59,9 @@ of the generic files.
   one sentence: what it is for and when it is read.
 - Don't show file contents in the chat. Create, then report briefly what
   exists now.
-- Questions as normal chat prose, not selection forms. Always with a
-  recommendation and short reasoning, so a "yes, do it" suffices.
+- Questions as normal chat prose, not selection forms — in Claude Code that
+  means no `AskUserQuestion`. Always with a recommendation and short
+  reasoning, so a "yes, do it" suffices.
 - Follow the question protocol below: one round of questions, one proposal
   block, one assumptions list. Everything else you decide yourself with a
   stated default. One extra question only if a real ambiguity changes the
@@ -144,8 +147,11 @@ already said.
      `sync-upstream` into the project; those are global (recovery after
      mid-task summarize, and maintainer Henroxx sync). Compact recovery
      in the project is the re-read line in AGENTS.md.
-   - **claude**: thin `CLAUDE.md` pointer + `.claude/` skills and SessionStart
-     hook. See `harnesses/claude.md`.
+   - **claude**: per `harnesses/claude.md` — `CLAUDE.md` pointer that
+     `@`-imports `AGENTS.md`, `.claude/skills/handoff/SKILL.md` from
+     `skills/handoff/SKILL.md` (same filling rules as below), and the
+     SessionStart compact hook merged into `.claude/settings.json`. Do not
+     copy `context-compact` or `sync-upstream` into the project either.
    - **both**: cursor first, then claude extras.
 
    In the handoff skill, fill `{{HISTORY_LINE}}` / `{{TESTING_LINE}}` only if
@@ -171,9 +177,13 @@ already said.
    reasoning unless self-explanatory.
 
 7. **Clean up and secure as one commit.** Check/extend `.gitignore`
-   (`.DS_Store`, venv, caches, `.cursor/rules/local.mdc` — personal rules
-   never get committed). Version `docs/agentcontext/` and `AGENTS.md` — the
-   project knowledge travels with the code and lands in the backup. Then one
+   (`.DS_Store`, venv, caches, and per harness the personal files —
+   cursor: `.cursor/rules/local.mdc`; claude: `CLAUDE.local.md`,
+   `.claude/settings.local.json`. Personal rules never get committed).
+   Version `docs/agentcontext/`, `AGENTS.md` and the harness wiring
+   (`.cursor/skills/`, or `CLAUDE.md`, `.claude/skills/` and
+   `.claude/settings.json`) — the project knowledge travels with the code and
+   lands in the backup. Then one
    commit for the whole setup, respecting the git permission from round 2.
    Note the commit hash for the final report.
 

@@ -17,8 +17,8 @@ continues where the last one stopped. Forgetting is fine; losing the *why* is no
 `AGENTS.md` is the tool-agnostic contract and `docs/agentcontext/` is plain
 Markdown — the methodology itself doesn't care which agent runs it. A harness
 is only the wiring that makes a given tool load those files: Cursor reads
-`AGENTS.md` directly; Claude Code gets a thin `CLAUDE.md` pointer plus a
-SessionStart hook so nothing is written twice. `/setup-project` asks which
+`AGENTS.md` directly; Claude Code gets a thin `CLAUDE.md` that `@`-imports
+`AGENTS.md` plus a SessionStart hook, so nothing is written twice. `/setup-project` asks which
 harness to wire — there is no default. See `harnesses/`: one small file per
 harness, and adding another (e.g. codex) is one more.
 
@@ -58,9 +58,18 @@ harness, and adding another (e.g. codex) is one more.
    Claude Code (macOS/Linux):
 
    ```bash
-   ln -s <clone>/skills/setup-project  ~/.claude/skills/setup-project
-   ln -s <clone>/skills/update-project ~/.claude/skills/update-project
+   mkdir -p ~/.claude/skills
+   ln -s <clone>/skills/setup-project    ~/.claude/skills/setup-project
+   ln -s <clone>/skills/update-project   ~/.claude/skills/update-project
+   ln -s <clone>/skills/context-compact  ~/.claude/skills/context-compact  # optional
+   ln -s <clone>/skills/sync-upstream    ~/.claude/skills/sync-upstream    # maintainer only
    ```
+
+   Claude Code (Windows PowerShell): the same `New-Item -ItemType Junction`
+   lines as above, with `$HOME\.claude\skills\...` as the path.
+
+   Claude Code re-injects `PROJECT.md` after a compact via a SessionStart
+   hook, so `context-compact` is a fallback there, not the recovery path.
 
    Optional: wire `global/AGENTS.md` only if you want its preferences in
    **every** repo. Cursor user rules with `alwaysApply: true` affect every

@@ -1,9 +1,9 @@
 # Working rules — {{PROJECT}}
 
 Binding for the collaboration in this repo. Tool-agnostic: this file is
-`AGENTS.md`. Cursor loads it as the project agent contract. Other harnesses
-that honor AGENTS.md do the same; see `harnesses/` in the methodology repo
-for extra wiring.
+`AGENTS.md`. Cursor loads it as the project agent contract; Claude Code loads
+it through a one-line `@AGENTS.md` import in `CLAUDE.md`. See `harnesses/` in
+the methodology repo for the wiring.
 
 ## Core
 
@@ -145,7 +145,8 @@ must include a difficulty score (1–10), suggested model size (`small` | `mediu
 and thinking budget (`low` | `medium` | `high`) with a 1-sentence rationale
 (calibrated in the `/handoff` skill). After handoff: open a fresh chat and paste
 the block. Do not compact this chat to continue. If a compact happens mid-task
-anyway, re-read `PROJECT.md` from disk (Cursor: `/context-compact`).
+anyway, re-read `PROJECT.md` from disk (Cursor: `/context-compact`; Claude
+Code: the SessionStart hook re-injects it). Fresh chat in Claude Code: `/clear`.
 
 ---
 

@@ -14,11 +14,12 @@ scaffold a harness the user did not choose.
 | Harness | Contract file | Skills | Local (gitignored) |
 |---|---|---|---|
 | cursor | `AGENTS.md` | `.cursor/skills/` | `.cursor/rules/local.mdc` |
-| claude | `AGENTS.md` plus a thin `CLAUDE.md` pointer | `.claude/skills/` | `CLAUDE.local.md` |
+| claude | `AGENTS.md` plus a thin `CLAUDE.md` that `@`-imports it | `.claude/skills/` | `CLAUDE.local.md`, `.claude/settings.local.json` |
 
 `AGENTS.md` is the single source of truth in every case. Claude Code reads
-`CLAUDE.md` natively, so the claude harness keeps a three-line pointer there
-instead of a second copy of the rules — nothing is written twice.
+`CLAUDE.md` natively, so the claude harness keeps a short pointer there whose
+`@AGENTS.md` line imports the contract instead of a second copy of the rules —
+nothing is written twice.
 
 Module-specific behavior:
 

@@ -6,14 +6,20 @@ skill/hook paths.
 
 ## Extra files
 
-1. `CLAUDE.md` — short pointer, not a second contract:
+1. `CLAUDE.md` — short pointer, not a second contract. The `@AGENTS.md`
+   line is a native Claude Code import: the contract is loaded every session
+   and re-loaded after a compact, without the agent having to remember to
+   read it.
 
    ```markdown
    # Claude Code — this repo uses AGENTS.md
 
-   Read and follow `AGENTS.md`. Do not duplicate rules here.
+   @AGENTS.md
 
-   Session start: AGENTS.md, then `docs/agentcontext/PROJECT.md`.
+   The import above loads `AGENTS.md` natively, every session and again after
+   a compact. Do not duplicate rules here.
+
+   Session start: `docs/agentcontext/PROJECT.md`.
    ```
 
    If `CLAUDE.md` already exists with real rules: merge into AGENTS.md,
@@ -43,15 +49,38 @@ skill/hook paths.
    }
    ```
 
-4. Gitignore `CLAUDE.local.md`. Personal Claude rules go there in shared
-   repos.
+4. Gitignore `CLAUDE.local.md` and `.claude/settings.local.json`. Personal
+   Claude rules and personal permissions go there in shared repos;
+   `.claude/settings.json` (the hook) and `.claude/skills/` are committed.
+
+Do **not** create `.cursor/` files unless the user also chose `cursor`.
+
+## Compact
+
+Happy path, same as Cursor: `/handoff`, then `/clear` (or a new session) and
+paste the block as the first message. After the handoff the old transcript is
+leftover.
+
+Claude Code may also `/compact` and stay — mid-task, or when auto-compact
+fires. That is safe here because `CLAUDE.md` (and with it `AGENTS.md`) is
+re-loaded natively and the SessionStart hook re-injects `PROJECT.md`. Propose
+`/handoff` *before* a planned compact anyway: the delta check needs the
+uncompacted session. `/context-compact` is only needed if the hook is
+missing or the re-injected index was not enough.
 
 ## User-level (once per machine)
 
 ```
-<methodology-root>/skills/setup-project  →  ~/.claude/skills/setup-project
-<methodology-root>/skills/update-project →  ~/.claude/skills/update-project
+<methodology-root>/skills/setup-project    →  ~/.claude/skills/setup-project
+<methodology-root>/skills/update-project   →  ~/.claude/skills/update-project
+<methodology-root>/skills/context-compact  →  ~/.claude/skills/context-compact   (optional)
+<methodology-root>/skills/sync-upstream    →  ~/.claude/skills/sync-upstream     (maintainer only)
 ```
+
+Link, don't copy: `setup-project` and `update-project` find the methodology
+root by resolving their own symlink. Claude Code prints the skill's base
+directory when the skill loads; resolve it with `realpath` (or
+`readlink -f`) to reach the clone.
 
 `~/.claude/CLAUDE.md` may `@`-import `global/AGENTS.md` and keep your name
 and machine-private facts below the import.

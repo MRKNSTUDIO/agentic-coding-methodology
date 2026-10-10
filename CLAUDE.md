@@ -1,5 +1,8 @@
 # Claude Code — this repo uses AGENTS.md
 
-Read and follow `AGENTS.md`. Do not duplicate rules here.
+@AGENTS.md
 
-Session start: `AGENTS.md`, then `agentcontext/PROJECT.md` (local, gitignored).
+The import above loads `AGENTS.md` natively, every session and again after a
+compact. Do not duplicate rules here.
+
+Session start: `agentcontext/PROJECT.md` (local, gitignored).
