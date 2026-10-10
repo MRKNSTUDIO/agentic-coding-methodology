@@ -31,7 +31,6 @@ harness, and adding another (e.g. codex) is one more.
    ```bash
    ln -s <clone>/skills/setup-project    ~/.cursor/skills/setup-project
    ln -s <clone>/skills/update-project   ~/.cursor/skills/update-project
-   ln -s <clone>/skills/context-compact  ~/.cursor/skills/context-compact
    ```
 
    Cursor (Windows PowerShell; junctions do not require Developer Mode):
@@ -40,19 +39,6 @@ harness, and adding another (e.g. codex) is one more.
    $clone = "C:\path\to\agentic-coding-methodology"
    New-Item -ItemType Junction -Path "$HOME\.cursor\skills\setup-project" -Target "$clone\skills\setup-project"
    New-Item -ItemType Junction -Path "$HOME\.cursor\skills\update-project" -Target "$clone\skills\update-project"
-   New-Item -ItemType Junction -Path "$HOME\.cursor\skills\context-compact" -Target "$clone\skills\context-compact"
-   ```
-
-   Maintainer-only (`/sync-upstream` pulls Henroxx into this fork):
-
-   ```bash
-   ln -s <clone>/skills/sync-upstream ~/.cursor/skills/sync-upstream
-   ```
-
-   On Windows, create the same junction with:
-
-   ```powershell
-   New-Item -ItemType Junction -Path "$HOME\.cursor\skills\sync-upstream" -Target "$clone\skills\sync-upstream"
    ```
 
    Claude Code (macOS/Linux):
@@ -61,15 +47,16 @@ harness, and adding another (e.g. codex) is one more.
    mkdir -p ~/.claude/skills
    ln -s <clone>/skills/setup-project    ~/.claude/skills/setup-project
    ln -s <clone>/skills/update-project   ~/.claude/skills/update-project
-   ln -s <clone>/skills/context-compact  ~/.claude/skills/context-compact  # optional
-   ln -s <clone>/skills/sync-upstream    ~/.claude/skills/sync-upstream    # maintainer only
    ```
 
    Claude Code (Windows PowerShell): the same `New-Item -ItemType Junction`
    lines as above, with `$HOME\.claude\skills\...` as the path.
 
    Claude Code re-injects `PROJECT.md` after a compact via a SessionStart
-   hook, so `context-compact` is a fallback there, not the recovery path.
+   hook that `/setup-project` adds to each repo.
+
+   `/sync-upstream` (pull Henroxx into this fork) is a project skill in
+   `.claude/skills/` of this repo. It is never installed globally.
 
    Optional: wire `global/AGENTS.md` only if you want its preferences in
    **every** repo. Cursor user rules with `alwaysApply: true` affect every
@@ -105,9 +92,9 @@ templates/               # source of truth for scaffolded files
 skills/
   setup-project/         # scaffolds the methodology into a repo
   update-project/        # pulls methodology updates into a scaffolded repo
-  sync-upstream/         # maintainer: translate Henroxx updates into this fork
-  context-compact/       # Cursor: re-inject after mid-task summarize
   handoff/               # ends a session cleanly, persists the session delta
+.claude/skills/
+  sync-upstream/         # this repo only: translate Henroxx updates into this fork
 harnesses/               # per-tool wiring (contract file, skills, local rules)
   README.md              # the harness contract + mapping table
   cursor.md              # Cursor wiring

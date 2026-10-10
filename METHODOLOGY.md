@@ -39,7 +39,7 @@ Plan → your OK → Task (persist decisions the moment they fall)
 - **Continue.** New chat, paste the block. After handoff the old chat is
   leftover — compacting it adds nothing. Claude Code may still `/compact`
   and stay (that harness re-injects `PROJECT.md` on compact); Cursor has
-  no such hook. If Cursor auto-summarizes *mid-task*, `/context-compact`
+  no such hook. If Cursor auto-summarizes *mid-task*, the agent
   re-reads the index from disk. That is recovery, not session end.
 
 ## What lives where

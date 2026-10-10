@@ -52,7 +52,7 @@ Translate his paths onto fork-owned files. Claude-only wiring stays in
   `templates/AGENTS.project.md`. Claude may keep compact-and-continue;
   that harness has a SessionStart hook. Reason: after handoff the old chat
   is leftover; compacting it adds nothing, and compacting *before* handoff
-  can drop the delta. `/context-compact` is mid-task recovery only.
+  can drop the delta.
 
 ## Stamps
 

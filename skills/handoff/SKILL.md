@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Ends a session cleanly — persists the session delta to PROJECT/DETAILS{{/HISTORY}}, removes what the finished work block leaves behind, and generates a copy-paste handoff block for the next session. Runs ONLY when the user invokes /handoff (or says "end the session" / "hand over") or explicitly approves a proposal to run it — never unprompted. When a task is finished or a compact is due (guideline ~150k tokens), propose it and wait. After the block: new chat (Claude Code: /clear), paste it — do not run /context-compact and do not compact this chat.
+description: Ends a session cleanly — persists the session delta to PROJECT/DETAILS{{/HISTORY}}, removes what the finished work block leaves behind, and generates a copy-paste handoff block for the next session. Runs ONLY when the user invokes /handoff (or says "end the session" / "hand over") or explicitly approves a proposal to run it — never unprompted. When a task is finished or a compact is due (guideline ~150k tokens), propose it and wait. After the block: new chat (Claude Code: /clear), paste it — do not compact this chat.
 disable-model-invocation: true
 argument-hint: "What will the next session work on?"
 ---
@@ -62,7 +62,7 @@ outcome — say so in one line instead of inventing work.
 
 Always output the block. The next step is a **fresh chat** — in Cursor a
 new chat, in Claude Code `/clear` (or a new session) — and the block is its
-first message. Do not run `/context-compact`. Do not tell the user to
+first message. Do not tell the user to
 `/summarize` or `/compact` this chat; after handoff the old transcript is
 leftover.
 

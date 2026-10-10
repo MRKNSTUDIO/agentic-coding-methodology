@@ -65,16 +65,14 @@ Claude Code may also `/compact` and stay — mid-task, or when auto-compact
 fires. That is safe here because `CLAUDE.md` (and with it `AGENTS.md`) is
 re-loaded natively and the SessionStart hook re-injects `PROJECT.md`. Propose
 `/handoff` *before* a planned compact anyway: the delta check needs the
-uncompacted session. `/context-compact` is only needed if the hook is
-missing or the re-injected index was not enough.
+uncompacted session. Without the hook, re-read `PROJECT.md` from disk after
+a compact.
 
 ## User-level (once per machine)
 
 ```
 <methodology-root>/skills/setup-project    →  ~/.claude/skills/setup-project
 <methodology-root>/skills/update-project   →  ~/.claude/skills/update-project
-<methodology-root>/skills/context-compact  →  ~/.claude/skills/context-compact   (optional)
-<methodology-root>/skills/sync-upstream    →  ~/.claude/skills/sync-upstream     (maintainer only)
 ```
 
 Link, don't copy: `setup-project` and `update-project` find the methodology

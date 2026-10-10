@@ -143,15 +143,12 @@ already said.
 
    - **cursor**: `.cursor/skills/handoff/SKILL.md` from
      `skills/handoff/SKILL.md`. No Claude Code hook — Cursor has no
-     SessionStart equivalent. Do not copy `context-compact` or
-     `sync-upstream` into the project; those are global (recovery after
-     mid-task summarize, and maintainer Henroxx sync). Compact recovery
-     in the project is the re-read line in AGENTS.md.
+     SessionStart equivalent. Compact recovery in the project is the
+     re-read line in AGENTS.md.
    - **claude**: per `harnesses/claude.md` — `CLAUDE.md` pointer that
      `@`-imports `AGENTS.md`, `.claude/skills/handoff/SKILL.md` from
      `skills/handoff/SKILL.md` (same filling rules as below), and the
-     SessionStart compact hook merged into `.claude/settings.json`. Do not
-     copy `context-compact` or `sync-upstream` into the project either.
+     SessionStart compact hook merged into `.claude/settings.json`.
    - **both**: cursor first, then claude extras.
 
    In the handoff skill, fill `{{HISTORY_LINE}}` / `{{TESTING_LINE}}` only if

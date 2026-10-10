@@ -29,7 +29,7 @@ Read: this file, `agentcontext/PROJECT.md` (index). Into
   `/update-project` will propose downstream, and whether the change is generic,
   harness-specific, or belongs in a variant.
 - **`CLAUDE/` is Henroxx's tree, read-only.** Do not edit it. Pulls go
-  through `/sync-upstream` (map in `harnesses/upstream.md`). Never merge
+  through `/sync-upstream`, a project skill in `.claude/skills/` (map in `harnesses/upstream.md`). Never merge
   Henroxx's upstream `main` onto this branch.
 - **Behavior in AGENTS.md, knowledge in context files** — the split governs
   this repo's own files too.
@@ -82,7 +82,7 @@ After every finished task, and at ~150k tokens at the latest, **propose**
 (1–10), suggested model size (`small` | `medium` | `big`), and thinking budget
 (`low` | `medium` | `high`) with a 1-sentence rationale (calibrated in the
 `/handoff` skill). After the handoff: fresh chat, paste the block. Do not compact
-this chat to continue. Mid-task auto-summarize: `/context-compact`.
+this chat to continue. After a mid-task compact, re-read `PROJECT.md` from disk.
 
 ---
 

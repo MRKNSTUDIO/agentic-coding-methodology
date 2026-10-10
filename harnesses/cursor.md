@@ -20,8 +20,8 @@ Do not compact-and-stay after handoff — the old chat is leftover.
 
 Cursor has no SessionStart hook that re-injects files after summarize.
 If Cursor auto-summarizes mid-task (or the user ran `/summarize` by
-accident), `/context-compact` re-reads PROJECT.md and AGENTS.md from
-disk. Propose `/handoff` *before* any compact so the delta is not lost.
+accident), the agent re-reads PROJECT.md and AGENTS.md from disk (the
+re-read line in the project AGENTS.md). Propose `/handoff` *before* any compact so the delta is not lost.
 
 ## Personal rules in a shared repo
 
@@ -42,16 +42,11 @@ Skills (junction or copy):
 ```
 <methodology-root>/skills/setup-project    →  ~/.cursor/skills/setup-project
 <methodology-root>/skills/update-project   →  ~/.cursor/skills/update-project
-<methodology-root>/skills/context-compact  →  ~/.cursor/skills/context-compact
 ```
 
 `handoff` is project-local after setup. A global copy is optional.
-`sync-upstream` is maintainer-only (this methodology repo); junction it
-the same way if you pull Henroxx updates here:
-
-```
-<methodology-root>/skills/sync-upstream → ~/.cursor/skills/sync-upstream
-```
+`sync-upstream` is not installed globally. It is a project skill in this
+repo's `.claude/skills/` (Cursor reads that folder too) and only applies here.
 
 ## Optional preferences
 
