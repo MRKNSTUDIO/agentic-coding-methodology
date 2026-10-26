@@ -33,9 +33,9 @@ Plan → your OK → Task (persist decisions the moment they fall)
 - **/handoff.** After every finished task, at latest around ~150k tokens.
   Collects what only lived in the chat, writes it to `docs/agentcontext/`, and outputs a
   short block for the next session (including difficulty rating, suggested model
-  size, and thinking budget). The agent proposes it, the human triggers
-  it — it never runs unprompted. Do this *before* any compact: the delta
-  check needs the uncompacted session.
+  size, and thinking budget). The agent runs it by itself, without asking:
+  waiting for a go loses the session when the context runs out first. Do this
+  *before* any compact: the delta check needs the uncompacted session.
 - **Continue.** New chat, paste the block. After handoff the old chat is
   leftover — compacting it adds nothing. Claude Code may still `/compact`
   and stay (that harness re-injects `PROJECT.md` on compact); Cursor has

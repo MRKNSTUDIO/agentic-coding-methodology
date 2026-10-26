@@ -62,8 +62,8 @@ before continuing — the summary is not the index.
   point it out and propose extracting it into a skill. Never create skills
   speculatively.
 - **Context budget:** at ~150k tokens, and after every finished task,
-  **propose** `/handoff` — even if there is room left. It never runs
-  unprompted; {{NAME}} triggers or approves it.
+  **run** `/handoff` yourself — without asking, even if there is room left.
+  Why: waiting for a go loses the session when the context runs out first.
 - **Keep information current:** an update to `DETAILS.md` **replaces** the
   outdated statement, it is not appended below it. Outdated assumptions are
   removed, not annotated.
@@ -139,8 +139,8 @@ keeps anyway, not a replacement:
 ## Session end
 
 Before finishing a task and **before every compact/summarize** (guideline ~150k
-tokens): propose `/handoff` and wait for the go — persist the session delta
-and generate the handoff block. Never run it out of nowhere. The handoff block
+tokens): run `/handoff` without asking — persist the session delta and
+generate the handoff block. The handoff block
 must include a difficulty score (1–10), suggested model size (`small` | `medium` | `big`),
 and thinking budget (`low` | `medium` | `high`) with a 1-sentence rationale
 (calibrated in the `/handoff` skill). After handoff: open a fresh chat and paste
