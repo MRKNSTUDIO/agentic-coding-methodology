@@ -36,6 +36,8 @@ Plan → your OK → Task (persist decisions the moment they fall)
   short block for the next session (including difficulty rating, suggested model
   size, and thinking budget). The agent runs it by itself, without asking:
   waiting for a go loses the session when the context runs out first.
+  Only for work on the project itself: a session that works on a tool or
+  another repo writes no handoff into the project.
 - **Continue.** `/compact` keeps the newest content densest — and the newest
   content is the handoff block, so nothing needs copying. A fresh chat doesn't
   have it, so paste it there.

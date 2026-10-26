@@ -64,6 +64,8 @@ before continuing — the summary is not the index.
 - **Context budget:** at ~150k tokens, and after every finished task,
   **run** `/handoff` yourself — without asking, even if there is room left.
   Why: waiting for a go loses the session when the context runs out first.
+  Only for work on this project: a session that works on a tool,
+  the blueprint or another repo from this folder writes no handoff and no note here.
 - **Keep information current:** an update to `DETAILS.md` **replaces** the
   outdated statement, it is not appended below it. Outdated assumptions are
   removed, not annotated.
@@ -139,7 +141,8 @@ keeps anyway, not a replacement:
 ## Session end
 
 Before finishing a task and **before every compact/summarize** (guideline ~150k
-tokens): run `/handoff` without asking — persist the session delta and
+tokens): run `/handoff` without asking (project work only, see
+"Context budget") — persist the session delta and
 generate the handoff block. The handoff block
 must include a difficulty score (1–10), suggested model size (`small` | `medium` | `big`),
 and thinking budget (`low` | `medium` | `high`) with a 1-sentence rationale

@@ -34,7 +34,9 @@ Plan → your OK → Task (persist decisions the moment they fall)
   Collects what only lived in the chat, writes it to `docs/agentcontext/`, and outputs a
   short block for the next session (including difficulty rating, suggested model
   size, and thinking budget). The agent runs it by itself, without asking:
-  waiting for a go loses the session when the context runs out first. Do this
+  waiting for a go loses the session when the context runs out first.
+  Only for work on the project itself: a session that works on a tool or
+  another repo writes no handoff into the project. Do this
   *before* any compact: the delta check needs the uncompacted session.
 - **Continue.** New chat, paste the block. After handoff the old chat is
   leftover — compacting it adds nothing. Claude Code may still `/compact`
