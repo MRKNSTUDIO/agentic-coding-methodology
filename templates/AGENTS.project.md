@@ -61,11 +61,17 @@ before continuing — the summary is not the index.
 - **Watch for skill candidates:** when a procedure repeats across sessions,
   point it out and propose extracting it into a skill. Never create skills
   speculatively.
-- **Context budget:** at ~150k tokens, and after every finished task,
-  **run** `/handoff` yourself — without asking, even if there is room left.
+- **Context budget:** at ~150k tokens **run** `/handoff` yourself — without
+  asking, even if there is room left.
   Why: waiting for a go loses the session when the context runs out first.
   Only for work on this project: a session that works on a tool,
   the blueprint or another repo from this folder writes no handoff and no note here.
+- **After a finished task:** decisions are in the files, the work is
+  committed. Then no handoff of your own accord: say what is open (board or
+  to-dos), recommend one next step, or offer to refine the task just done.
+  Run `/handoff` only when {{NAME}} asks for it or the next task is already
+  settled (approved plan, long-running block). Why: a handoff with a guessed
+  next task leads nowhere — {{NAME}} picks the next step, not the agent.
 - **Keep information current:** an update to `DETAILS.md` **replaces** the
   outdated statement, it is not appended below it. Outdated assumptions are
   removed, not annotated.
@@ -140,9 +146,9 @@ keeps anyway, not a replacement:
 
 ## Session end
 
-Before finishing a task and **before every compact/summarize** (guideline ~150k
-tokens): run `/handoff` without asking (project work only, see
-"Context budget") — persist the session delta and
+**Before every compact/summarize** (guideline ~150k tokens) run `/handoff`
+without asking; after a finished task only as "After a finished task" says
+(project work only, see "Context budget") — persist the session delta and
 generate the handoff block. The handoff block
 must include a difficulty score (1–10), suggested model size (`small` | `medium` | `big`),
 and thinking budget (`low` | `medium` | `high`) with a 1-sentence rationale

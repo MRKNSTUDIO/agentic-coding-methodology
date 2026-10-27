@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Ends a session cleanly — persists the session delta to PROJECT/DETAILS{{/HISTORY}}, removes what the finished work block leaves behind, and generates a copy-paste handoff block for the next session. Run it without asking after every finished task and before a compact (guideline ~150k tokens), but only when the session worked on this project, not on a tool or another repo; also when the user says /handoff, "end the session" or "hand over". After the block: new chat (Claude Code: /clear), paste it — do not compact this chat.
+description: Ends a session cleanly — persists the session delta to PROJECT/DETAILS{{/HISTORY}}, removes what the finished work block leaves behind, and generates a copy-paste handoff block for the next session. Run it without asking before a compact (guideline ~150k tokens) and after a finished task only when the next task is settled (approved plan, long-running block), and only when the session worked on this project, not on a tool or another repo; also when the user says /handoff, "end the session" or "hand over". After the block: new chat (Claude Code: /clear), paste it — do not compact this chat.
 argument-hint: "What will the next session work on?"
 ---
 
@@ -71,8 +71,10 @@ new chat.
 Then a Markdown code block, copy-paste-ready. Include **only the parts that
 apply**:
 
-- **Task** — what the next session works on (from the argument; without an
-  argument, derive it from the to-dos and mark it as a suggestion)
+- **Task** — what the next session works on: from the argument, or the settled
+  next step of an approved plan or long-running block. Never guess it from the
+  to-dos. Not settled: stop before the block, name what is open with one
+  recommendation, and write the block once the user has picked
 - **Difficulty** — score 1–10 | Model: `small` | `medium` | `big` | Thinking: `low` | `medium` | `high` (one-sentence rationale). Calibration:
   - 1–3: `small` model, `low` thinking — routine edits, docs/copy changes, isolated bugfixes, small self-contained helpers.
   - 4–6: `medium` model, `medium` thinking — multi-step features, component extractions, standard logic with well-bounded interfaces.

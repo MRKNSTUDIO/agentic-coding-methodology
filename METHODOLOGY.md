@@ -30,7 +30,10 @@ Plan → your OK → Task (persist decisions the moment they fall)
   against to-dos.
 - **Task.** Decisions go into the files the moment they are made, not at the
   end. What only exists in the chat is lost.
-- **/handoff.** After every finished task, at latest around ~150k tokens.
+- **/handoff.** At latest around ~150k tokens; after a finished task only when
+  the next task is settled (approved plan, long-running block) or the user
+  asks. Otherwise the agent names what is open and recommends a next step —
+  a handoff with a guessed task leads nowhere.
   Collects what only lived in the chat, writes it to `docs/agentcontext/`, and outputs a
   short block for the next session (including difficulty rating, suggested model
   size, and thinking budget). The agent runs it by itself, without asking:
